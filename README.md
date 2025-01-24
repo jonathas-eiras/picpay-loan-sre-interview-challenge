@@ -1,81 +1,67 @@
-# Desafio SRE
+# cypress-pp-loan
 
-Obrigado pelo interesse em fazer parte do nosso time! Preparamos este desafio com carinho para ajudar a entender um pouco mais dos seus conhecimentos na área de DevOps/SRE
+# Projeto de Testes Automatizados com Cypress 
 
-Se não entender algum conceito ou parte do problema, não é motivo para se preocupar! Queremos que faça o desafio até onde souber.
+Repositório contendo testes automatizados, que foram implementados com uso do Cypress e seguindo as boas práticas recomendadas.
 
-No mais, divirta-se :D
+## Estrutura do Projeto
 
-## Avisos antes de começar
+A estrutura do projeto está organizada de acordo com as melhores práticas do Cypress:
 
-- Leia com atenção este documento todo e tente seguir ao **máximo** as instruções;
-- Crie um repositório no seu GitHub **sem citar nada relacionado ao PicPay**;
-- Faça seus commits no seu repositório;
-- Envie o link do seu repositório para o email **do recrutador responsável**;
-- Dê uma olhada nos [Links Úteis](#links-úteis);
-- Dê uma olhada em como será a [entrevista](#para-o-dia-da-entrevista-técnica);
-- Fique à vontade para perguntar qualquer dúvida aos recrutadores;
-
-## Conteúdo do repositório
-
-Este projeto é um exemplo bem simples de aplicação web full-stack, utilizando uma arquitetura de microsserviços com um BFF em **Go** para otimizar a comunicação entre o frontend e o backend. O backend em **Java** interage com um banco de dados MySQL para armazenar e recuperar os dados, enquanto o frontend em **React** é responsável pela interface do usuário.
-
-Você pode subir o banco de dados MySQL utilizando o arquivo **./docker-compose.yaml** e pode ser inicializado utilizando o **./init.sql**
-
-Alguns exemplos de requisição estão no arquivo **./requests.http**
-
-### Váriaveis de Ambiente
-
-|Aplicação|Key|Default|Description|Exemplo|
-|-|-|-|-|-|
-|backend|DB_URL|n/a|Define a URL de conexão com o banco de dados.|mysql://user:password@host:port/database|
-|backend|DB_USERNAME|n/a|Especifica o nome de usuário utilizado para autenticar a conexão com o banco de dados.|myuser|
-|backend|DB_PASSWORD|n/a|Contém a senha associada ao nome de usuário para a conexão com o banco de dados.|mypassword123|
-|backend|JWT_SECRET_KEY|n/a|É uma chave secreta utilizada para gerar e verificar tokens JWT (JSON Web Tokens).|averylongandsecuresecretkey|
-|bff|PORT|8085|Porta de exposição do BFF.|n/a|
-|bff|API_URL|http://localhost:8080|URL de exposição do backend.|n/a|
-|bff|CLIENT_ID|n/a|Identifica um cliente em um sistema de autenticação OAuth.|bff|
-|bff|CLIENT_SECRET|n/a|É uma chave secreta associada ao Client ID, utilizada para verificar a identidade do cliente durante o processo de autenticação OAuth.|averylongandsecureclientsecret|
-
-# Avaliação
-
-## O que deve ser feito?
-
-- Ajustes que fazem todas as aplicações subirem e se comunicarem;
-- Colete as métricas expostas pela aplicação backend, seria legal também exibilas em algum dashboard;
-- Colete e armazene os logs das aplicações;
-- Um README contendo os seus pensamentos ao longo do projeto;
-- Um desenho contendo os serviços que explique o funcionamento;
+![Screenshot 2025-01-23 at 21 42 23](https://github.com/user-attachments/assets/8ccfc0f4-c19d-4159-9719-3ce9ab874439)
 
 
-Faça commits ao longo do processo, queremos entender o seu modo de pensar! :)
-
-Para a entrevista, separe também anotações contendo melhorias que faria em cada aplicação ou na arquitetura em geral. Não envie estas anotações na pull request.
-
-## O que será avaliado ?
-
-- Compreensão de arquitetura;
-- Monitoramento;
-- Documentação;
-- Conteinerização;
-- Habilidade de resolução de problemas.
+- e2e - Pasta com os cenários de testes.
+- reports - Pasta contendo os reports gerados após execução dos testes.
+- support - Contém o arquivo "commands.js", onde estão os "Cypress Custom Commands" e o arquivo "e2e.js" contendo a função de uso global "Before Each".
+- videos - Contém as evidências de execução dos testes em vídeo.
 
 
-## O que será um Diferencial
+## Pré-requisitos
 
-- Automatização
-- Utilização de Helm/Kubernetes
-- Alertas
-- Melhorias na arquitetura.
+- [Node.js](https://nodejs.org/) versão 14 ou superior
+- [Cypress](https://www.cypress.io/) versão [versão desejada]
 
 
-## Links Úteis
 
-- https://docs.spring.io/spring-boot/reference/actuator/metrics.html
-- https://github.com/open-telemetry/opentelemetry-java-instrumentation
-- https://12factor.net/
-- https://docs.docker.com/reference/dockerfile/
-- https://docs.docker.com/compose/
-- https://pt-br.legacy.reactjs.org/docs/getting-started.html
-- https://doubletapp.medium.com/overview-of-monitoring-system-with-prometheus-and-grafana-9ce6501eff88
-- https://www.elastic.co/pt/blog/getting-started-with-the-elastic-stack-and-docker-compose
+## Execução dos testes - Localmente
+
+- OBS: Antes de executar qualquer um dos comandos abaixo é necessário executar o comando:
+    * `npm install`
+    
+    Como também criar um novo arquivo na raiz do projeto, chamado  "cypress.env.json", contendo o seguinte valor:
+  
+     `{
+        "cpf": "448.029.390-60"
+     }`
+
+1. Para executar em Modo Interativo
+   * `npx cypress open`
+
+2. Para executar em Modo Headless (linha de comando)
+  * `npx cypress run`
+
+3. Para executar com Docker.
+   - Possuir Docker instalado na máquina.
+     
+   * `docker build -t cypressproject:1.0 .`
+   * `docker run -i -t cypressproject:1.0 cypress run --spec cypress/e2e/*.cy.js`
+
+## Execução dos testes e Reports - Github Actions
+
+- Acessar a aba actions
+
+- Escolher a opção Cypress-tests e clicar em Run workflow - Run workflow
+
+<img width="1419" alt="Screenshot 2024-11-04 at 12 39 20" src="https://github.com/user-attachments/assets/4482f3bf-7dc3-4b39-809a-6b44afeaf298">
+
+### Relatórios
+
+- Clicar na última execução
+
+- Rolar a página até a seção Artifacts e baixar os relatórios.
+
+  <img width="1420" alt="Screenshot 2024-11-04 at 12 47 19" src="https://github.com/user-attachments/assets/0b3caf94-5eee-428e-be94-25044634c307">
+
+- Abrir o arquivo index.html em um navegador.
+
