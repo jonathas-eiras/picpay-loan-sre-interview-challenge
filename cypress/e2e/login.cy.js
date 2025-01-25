@@ -4,4 +4,10 @@ describe('Login', () => {
         cy.login()
 
     })
+    
+    it('Invalid CPF', () => {
+    
+        cy.loginInvalidCpf()
+
+    })
 })

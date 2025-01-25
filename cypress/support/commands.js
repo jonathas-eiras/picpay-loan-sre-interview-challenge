@@ -1,6 +1,6 @@
 Cypress.Commands.add('login', () => {
 
-    cy.visit('/')
+     
     cy.get('[id="mat-input-0"]').should('be.visible').type(Cypress.env('cpf'), { log: false })
     cy.intercept('POST', 'https://api.picpay.com/loan-nc-auth-lp/auth', (req) => {
         req.reply((res) => {
@@ -29,6 +29,23 @@ Cypress.Commands.add('login', () => {
 
 })
 
+Cypress.Commands.add('loginInvalidCpf', () => {
+
+
+    cy.get('[id="mat-input-0"]').should('be.visible').type(Cypress.env('invalidCpf'), { log: false })
+    cy.intercept('POST', 'https://api.picpay.com/loan-nc-auth-lp/auth', (req) => {
+        req.reply((res) => {
+            return res
+        })
+
+    }).as('getStatus')
+
+    cy.get('.bg-primary-500').should('be.visible').click()
+
+    cy.get('[id="mat-mdc-error-0"]').contains('CPF Inválido')
+
+})
+
 Cypress.Commands.add('createAccount', () => {
     cy.helpCenter()
 
@@ -46,10 +63,6 @@ Cypress.Commands.add('createAccount', () => {
 
 
         cy.get('[id="qrCodeContainerFormLeads"]').should('be.visible')
-
-        cy.visit('https://picpay.onelink.me/HPHx?af_js_web=true&af_ss_ver=2_9_0&pid=organic_web&c=organic_web&af_channel=channel_web&deep_link_value=feed&af_sub3=%2Fcanais-de-atendimento&af_sub4=web&af_dp=picpay%3A%2F%2F&af_web_dp=https%3A%2F%2Fpicpay.com%2Fbaixar-o-app-picpay&is_retargeting=true&af_ss_ui=true&af_ss_gtm_ui=true&af_ss_qr=true')
-        cy.get('.sc-1s3qae2-0').contains('Sucesso')
-
 
     })
 })

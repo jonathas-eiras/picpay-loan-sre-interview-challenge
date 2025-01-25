@@ -31,9 +31,10 @@ A estrutura do projeto está organizada de acordo com as melhores práticas do C
     
     Como também criar um novo arquivo na raiz do projeto, chamado  "cypress.env.json", contendo o seguinte valor:
   
-     `{
-        "cpf": "448.029.390-60"
-     }`
+   `{
+      "cpf": "448.029.390-60",
+      "invalidCpf": "111.111.111-11"
+    }`
 
 1. Para executar em Modo Interativo
    * `npx cypress open`

@@ -7,6 +7,7 @@ describe('Create Account and Login', () => {
             cy.get('.sc-1s3qae2-0').contains('Sucesso')
         })
 
+        cy.visit('/')
         cy.login()
 
     })
